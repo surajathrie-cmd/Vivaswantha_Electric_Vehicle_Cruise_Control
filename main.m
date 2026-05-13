@@ -1,24 +1,25 @@
-% Electric Vehicle Cruise Control (No Toolbox)
+% Electric Vehicle Cruise Control (Final Stable Version)
 
 clc;
 clear;
 close all;
 
-% Time span
+% Simulation time
 tspan = [0 30];
 
-% Initial condition
-y0 = 0;
+% Initial conditions
+y0 = 0;          % initial speed
+I0 = 0;          % initial integral error
 
-% PI Controller gains
-Kp = 1;
-Ki = 0.5;
+% Controller gains (tuned)
+Kp = 1.5;
+Ki = 0.8;
 
-% Define ODE
-odefun = @(t, y) cruise_eq(t, y, Kp, Ki);
+% Solve ODE system
+[t, X] = ode45(@(t, X) cruise_system(t, X, Kp, Ki), tspan, [y0 I0]);
 
-% Solve ODE
-[t, y] = ode45(odefun, tspan, y0);
+% Extract variables
+y = X(:,1);   % speed
 
 % Plot result
 figure;
@@ -28,31 +29,34 @@ xlabel('Time (s)');
 ylabel('Speed');
 grid on;
 
-% --- Function definition ---
-function dydt = cruise_eq(t, y, Kp, Ki)
+% ---------------- FUNCTION ----------------
+function dXdt = cruise_system(t, X, Kp, Ki)
+
+    y = X(1);     % current speed
+    I = X(2);     % integral of error
+
     % Desired speed (step input)
     r = 1;
 
     % Error
     e = r - y;
 
-    % Integral (approximation)
-    persistent integral_e
-    if isempty(integral_e)
-        integral_e = 0;
-    end
-    integral_e = integral_e + e*0.01;
-
-    % PI controller
-    u = Kp*e + Ki*integral_e;
-
-    % Disturbance at t = 10
+    % Disturbance at t = 10 sec
     if t >= 10
         d = -0.2;
     else
         d = 0;
     end
 
+    % PI controller
+    u = Kp * e + Ki * I;
+
     % System equation: 5 dy/dt + y = u + d
-    dydt = (u + d - y)/5;
+    dydt = (u + d - y) / 5;
+
+    % Integral of error
+    dIdt = e;
+
+    % Return derivatives
+    dXdt = [dydt; dIdt];
 end
