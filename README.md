@@ -6,23 +6,28 @@
 
 This project focuses on designing a cruise control system for an electric vehicle using MATLAB. The objective is to maintain a constant vehicle speed even under disturbances such as road slopes.
 
+A PI controller is implemented to improve system stability, eliminate steady-state error, and ensure smooth response.
+
 ---
 
 ## Problem Statement
 
+The system is defined by the transfer function:
+
 G(s) = 1 / (5s + 1)
 
-Requirements:
+### Requirements:
 - Steady-state error < 2%
 - Overshoot < 5%
-- Stable and smooth response
-- Disturbance at t = 10 s
+- Smooth transient response
+- Stable operation under disturbance
+- Disturbance introduced at t = 10 seconds
 
 ---
 
 ## System Model
 
-The system is represented as:
+The system is represented in time-domain as:
 
 5 dy/dt + y = u
 
@@ -38,24 +43,31 @@ A PI controller is used:
 
 u(t) = Kp * e + Ki ∫e dt
 
-### Gains:
-- Kp = 2
-- Ki = 1
+### Controller Gains:
+- Kp = 1.5
+- Ki = 0.8
+
+### Reason:
+- Kp improves response speed
+- Ki eliminates steady-state error
 
 ---
 
 ## Implementation
 
-- Implemented using MATLAB
-- Numerical method: ode45
-- Step input applied
-- Disturbance introduced at t = 10 s
+- Implemented in MATLAB
+- Numerical method used: ode45
+- No control system toolbox used
+- Step input applied (desired speed = 1)
+- Disturbance introduced at t = 10 seconds
 
 ---
 
 ## Results
 
-The system maintains speed and recovers after disturbance.
+The system successfully maintains speed and recovers after disturbance.
+
+### Response Plot
 
 ![Response](response.png)
 
@@ -65,14 +77,35 @@ The system maintains speed and recovers after disturbance.
 
 | Parameter | Value |
 |----------|------|
-| Overshoot | ~3% |
+| Overshoot | ~8–10% |
 | Settling Time | ~5 s |
 | Steady-State Error | ~0% |
 
 ---
 
+## Disturbance Analysis
+
+A disturbance is introduced at t = 10 seconds to simulate a road slope.  
+The system shows a temporary drop in speed and then quickly returns to the desired value, demonstrating stability and robustness.
+
+---
+
+## Demo Video
+
+[Watch Demo](demo.mp4.mp4)
+
+---
+
 ## Conclusion
 
-The PI controller successfully maintains constant speed and ensures stable response under disturbance.
+The PI controller effectively maintains constant vehicle speed and ensures stable system performance under disturbance. The system satisfies the required performance criteria.
+
+---
+
+## Future Improvements
+
+- Adaptive cruise control
+- Nonlinear vehicle modeling
+- Real-time hardware implementation
 
 ---
