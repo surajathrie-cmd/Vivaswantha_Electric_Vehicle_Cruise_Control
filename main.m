@@ -60,3 +60,34 @@ function dXdt = cruise_system(t, X, Kp, Ki)
     % Return derivatives
     dXdt = [dydt; dIdt];
 end
+% --- Controller Comparison: P vs PI ---
+
+Kp_only = 1.5;
+
+[t1, y1] = ode45(@(t, y) cruise_P(t, y, Kp_only), tspan, y0);
+
+figure;
+plot(t, y, 'LineWidth', 2); hold on;
+plot(t1, y1, '--', 'LineWidth', 2);
+legend('PI Controller', 'P Controller');
+title('Controller Comparison');
+xlabel('Time (s)');
+ylabel('Speed');
+grid on;
+
+% -------- P Controller Function --------
+function dydt = cruise_P(t, y, Kp)
+
+    r = 1;
+    e = r - y;
+
+    if t >= 10
+        d = -0.2;
+    else
+        d = 0;
+    end
+
+    u = Kp * e;
+
+    dydt = (u + d - y) / 5;
+end
