@@ -1,22 +1,23 @@
-# Electric Vehicle Cruise Control System using PI Controller
+# 🚗 Electric Vehicle Cruise Control System using PI Controller
+
+## 📌 Introduction
+
+This project focuses on designing and simulating a cruise control system for an electric vehicle using MATLAB. The objective is to maintain a constant vehicle speed even in the presence of disturbances such as road slopes or load variations.
+
+A PI (Proportional–Integral) controller is implemented to improve system stability, reduce steady-state error, and achieve accurate speed tracking.
+
+The project is implemented using MATLAB numerical methods (`ode45`) without using the Control System Toolbox.
 
 ---
 
-## Introduction
+# 🎯 Problem Statement
 
-This project focuses on designing a cruise control system for an electric vehicle using MATLAB. The objective is to maintain a constant vehicle speed even under disturbances such as road slopes.
-
-A PI controller is implemented to improve system stability, eliminate steady-state error, and ensure smooth response.
-
----
-
-## Problem Statement
-
-The system is defined by the transfer function:
+Design a cruise control system for an electric vehicle with the transfer function:
 
 G(s) = 1 / (5s + 1)
 
-### Requirements:
+## Requirements
+
 - Steady-state error < 2%
 - Overshoot < 5%
 - Smooth transient response
@@ -25,87 +26,136 @@ G(s) = 1 / (5s + 1)
 
 ---
 
-## System Model
+# ⚙️ System Model
 
-The system is represented in time-domain as:
+The transfer function is converted into the time-domain differential equation:
 
-5 dy/dt + y = u
+5(dy/dt) + y = u
 
 Where:
-- Input: Throttle control
-- Output: Vehicle speed
+
+- u(t) → Control input (throttle)
+- y(t) → Vehicle speed
 
 ---
 
-## Controller Design
+# 🧠 Controller Design
 
 A PI controller is used:
 
 u(t) = Kp * e + Ki ∫e dt
 
-### Controller Gains:
-- Kp = 1.5
-- Ki = 0.8
+## Controller Parameters
 
-### Reason:
+| Parameter | Value |
+|---|---|
+| Kp | 1.5 |
+| Ki | 0.8 |
+
+## Purpose of Gains
+
 - Kp improves response speed
 - Ki eliminates steady-state error
 
 ---
 
-## Implementation
+# 💻 MATLAB Implementation
 
-- Implemented in MATLAB
-- Numerical method used: ode45
-- No control system toolbox used
-- Step input applied (desired speed = 1)
-- Disturbance introduced at t = 10 seconds
+## Features
+
+- MATLAB implementation without toolbox
+- Numerical solution using `ode45`
+- Step input applied (reference speed = 1)
+- Disturbance introduced at 10 seconds
+- Comparison between P and PI controllers
 
 ---
 
-## Results
+# 📊 Results and Analysis
 
-The system successfully maintains speed and recovers after disturbance.
+The system successfully maintains the desired speed and recovers after disturbance.
 
-### Response Plot
+## Response Plot
 
 ![Response](response.png)
 
 ---
 
-## Performance Metrics
+# 📈 Controller Comparison
+
+## P Controller
+
+- Lower overshoot
+- Large steady-state error
+- Cannot reach desired speed accurately
+
+## PI Controller
+
+- Reaches desired speed (~1)
+- Nearly zero steady-state error
+- Better disturbance rejection
+- Faster and more accurate response
+
+---
+
+# 📋 Performance Metrics
 
 | Parameter | Value |
-|----------|------|
+|---|---|
 | Overshoot | ~8–10% |
 | Settling Time | ~5 s |
 | Steady-State Error | ~0% |
 
 ---
 
-## Disturbance Analysis
+# 🌊 Disturbance Analysis
 
-A disturbance is introduced at t = 10 seconds to simulate a road slope.  
-The system shows a temporary drop in speed and then quickly returns to the desired value, demonstrating stability and robustness.
+A disturbance is introduced at t = 10 seconds to simulate a road slope.
 
----
-
-## Demo Video
-
-[Watch Demo](demo.mp4.mp4)
+The system experiences a temporary drop in speed and quickly recovers to the desired value, demonstrating robustness and stability.
 
 ---
 
-## Conclusion
+# 🎥 Demo Video
 
-The PI controller effectively maintains constant vehicle speed and ensures stable system performance under disturbance. The system satisfies the required performance criteria.
+[Watch Demo](demo.mp4)
 
 ---
 
-## Future Improvements
+# 📁 Project Files
 
-- Adaptive cruise control
-- Nonlinear vehicle modeling
+- `main.m` → MATLAB simulation code
+- `response.png` → System response graph
+- `README.md` → Project documentation
+- `demo.mp4` → Demonstration video
+
+---
+
+# ✅ Conclusion
+
+The PI controller effectively maintains constant vehicle speed and eliminates steady-state error. The system remains stable under disturbance and provides better performance compared to a basic P controller.
+
+The project demonstrates the application of feedback control systems in electric vehicle cruise control using MATLAB numerical simulation.
+
+---
+
+# 🔮 Future Improvements
+
+- PID controller implementation to reduce overshoot
+- Adaptive cruise control system
 - Real-time hardware implementation
+- AI-based controller tuning
+- Nonlinear vehicle modeling
 
 ---
+
+# 🛠️ Software Used
+
+- MATLAB
+- ode45 Numerical Solver
+
+---
+
+# 👨‍💻 Author
+
+Electric Vehicle Cruise Control System Project using PI Controller and MATLAB Simulation.
