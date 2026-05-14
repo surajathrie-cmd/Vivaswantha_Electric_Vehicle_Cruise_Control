@@ -75,13 +75,15 @@ u(t) = Kp * e + Ki ∫e dt
 
 The system successfully maintains the desired speed and recovers after disturbance.
 
-## Response Plot
+## Cruise Control Response
 
-![Response](response.png)
+<img width="700" alt="Response Graph" src="response.png">
 
 ---
 
 # 📈 Controller Comparison
+
+<img width="700" alt="Comparison Graph" src="comparison.png">
 
 ## P Controller
 
@@ -125,7 +127,8 @@ The system experiences a temporary drop in speed and quickly recovers to the des
 # 📁 Project Files
 
 - `main.m` → MATLAB simulation code
-- `response.png` → System response graph
+- `response.png` → Cruise control response graph
+- `comparison.png` → P vs PI controller comparison graph
 - `README.md` → Project documentation
 - `demo.mp4` → Demonstration video
 
